@@ -1,4 +1,3 @@
-import 'package:animated_bottom_bar/temp_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomeScreen(),
-      // home: const TempScreen(),
+      // home: const DemoScreen(),
     );
   }
 }
