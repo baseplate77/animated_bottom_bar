@@ -54,24 +54,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      body: SafeArea(
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: artboards.map<Widget>((artboard) {
-              final index = artboards.indexOf(artboard);
-              return BottomAppBarItem(
-                artboard: artboard,
-                currentIndex: currentActiveIndex,
-                tabIndex: index,
-                input: inputs[index],
-                cb: () => setState(() {
-                  inputs[index]!.value = currentActiveIndex == index;
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: artboards.map<Widget>((artboard) {
+            final index = artboards.indexOf(artboard);
+            return BottomAppBarItem(
+              artboard: artboard,
+              currentIndex: currentActiveIndex,
+              tabIndex: index,
+              input: inputs[index],
+              onpress: () {
+                setState(() {
                   currentActiveIndex = index;
-                }),
-              );
-            }).toList(),
-          ),
+                });
+              },
+            );
+          }).toList(),
         ),
       ),
     );
@@ -82,13 +81,13 @@ class BottomAppBarItem extends StatelessWidget {
   const BottomAppBarItem({
     Key? key,
     required this.artboard,
-    required this.cb,
+    required this.onpress,
     required this.currentIndex,
     required this.tabIndex,
     required this.input,
   }) : super(key: key);
   final Artboard? artboard;
-  final VoidCallback cb;
+  final VoidCallback onpress;
   final int currentIndex;
   final int tabIndex;
   final SMIInput<bool>? input;
@@ -99,10 +98,10 @@ class BottomAppBarItem extends StatelessWidget {
       input!.value = currentIndex == tabIndex;
     }
     return SizedBox(
-      width: 100,
-      height: 100,
+      width: 150,
+      height: 150,
       child: GestureDetector(
-        onTap: cb,
+        onTap: onpress,
         child: artboard == null ? const SizedBox() : Rive(artboard: artboard!),
       ),
     );
